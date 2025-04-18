@@ -1,6 +1,17 @@
 const express = require('express');
-const router =express.Router();
+const { authMiddleware } = require('../middleware');
+const { Accounts } = require('../db');
+const router = express.Router();
 
 
+router.get('/balance',authMiddleware,async (req,res)=>{
+    const userAccount = await Accounts.findOne({
+        userId:req.userId
+    })
 
-module.exports= router;
+    res.statq(200).json({
+        balance:userAccount.balance
+    })
+})
+
+module.exports = router;
