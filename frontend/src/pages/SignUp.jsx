@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '../components/Button';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const SignUp = () => {
@@ -12,33 +12,43 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleSignUpButton = () => {
-        const res = axios.post({
-            url: "http://localhost:5000/api/v1/auth/signup",
-            body: {
+    const handleSignUpButton = async () => {
+        if (!username || !firstName || !lastName || !password) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        try {
+            const res = await axios.post("http://localhost:3000/api/v1/user/signup", {
                 username,
                 firstName,
                 lastName,
                 password
-            },
-            headers: {
-                "Content-Type": "application/json"
+            }, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            console.log(res.data);
+
+            if (res.status === 200) {
+                alert("SignUp Successful");
+                navigate("/dashboard");
             }
-        })
-        console.log(res);
-        if (res.status === 200) {
-            navigate("/dashboard");
-        } else {
+        } catch (err) {
+            console.error(err);
             alert("SignUp Failed");
         }
-    }
+    };
+
 
     return (
         <div className='h-screen text-center flex flex-col items-center justify-center '>
-            <h1 className='text-4xl font-bold mb-4' >SignUp</h1>
-            <p className='mb-4 text-md'>Enter your information to create an account</p>
-
             <div className="w-full max-w-sm border rounded-md p-4">
+                <h1 className='text-4xl font-bold mb-4' >SignUp</h1>
+                <p className='mb-4 text-md'>Enter your information to create an account</p>
+
                 <div className="flex justify-center items-center">
                     <div className="w-full">
                         <h3 className="font-bold text-md mb-1 text-left">First Name</h3>
@@ -46,6 +56,7 @@ const SignUp = () => {
                             className="w-full p-2 border border-gray-300 rounded-md text-md mb-4"
                             type="text"
                             placeholder="John"
+                            value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
                         />
                         <h3 className="font-bold text-md mb-1 text-left">Last Name</h3>
@@ -53,29 +64,32 @@ const SignUp = () => {
                             className="w-full p-2 border border-gray-300 rounded-md text-md  mb-4"
                             type="text"
                             placeholder="Doe"
+                            value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
 
                         />
                         <h3 className="font-bold text-md mb-1 text-left">Email</h3>
                         <input
                             className="w-full p-2 border border-gray-300 rounded-md text-md mb-4"
-                            type="text"
+                            type="email"
                             placeholder="johndoe@example.com"
+                            value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
                         <h3 className="font-bold text-md mb-1 text-left">Password</h3>
                         <input
                             className="w-full p-2 border border-gray-300 rounded-md text-md mb-4"
-                            type="text"
+                            type="password"
                             placeholder=""
+                            value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <div onClick={() => { handleSignUpButton }}>
+                        <div onClick={handleSignUpButton}>
                             <Button text={"SignUp"} className={"w-full"} />
                         </div>
 
                         <p className="text-sm font-semibold text-gray-800 mt-4">
-                            Already have an account? <a href="/signin" className="text-gray-900 underline font-semibold hover:text-blue-700">Sign In</a>
+                            Already have an account? <Link to="/signin" className="text-gray-900 underline font-semibold hover:text-blue-700">Sign In</Link>
                         </p>
                     </div>
                 </div>
