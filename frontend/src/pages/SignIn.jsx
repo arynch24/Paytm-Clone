@@ -7,8 +7,6 @@ import axios from 'axios';
 const SignIn = () => {
 
     const [username, setUsername] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
@@ -75,9 +73,6 @@ const SignIn = () => {
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     )
 }
