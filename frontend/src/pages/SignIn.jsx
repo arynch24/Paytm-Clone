@@ -30,6 +30,7 @@ const SignIn = () => {
 
             if (res.status === 200) {
                 alert("SignIn Successful");
+                localStorage.setItem("token", res.data.token); // Store the token in local storage
                 navigate("/dashboard");
             }
         } catch (err) {

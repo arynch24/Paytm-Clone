@@ -34,6 +34,7 @@ const SignUp = () => {
 
             if (res.status === 200) {
                 alert("SignUp Successful");
+                localStorage.setItem("token", res.data.token); // Store the token in local storage
                 navigate("/dashboard");
             }
         } catch (err) {
