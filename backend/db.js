@@ -38,7 +38,11 @@ const accountSchema = new mongoose.Schema({
         ref:'User',
         required: true,
     },
-    balance: Number
+    //should not be float in india it should be upto 2-4 decimal places and we need to store 7777 in database but to show 77.77 on frontend for balance 77.77
+    balance: {
+        type: Number,
+        required: true
+    }
 })
 
 
