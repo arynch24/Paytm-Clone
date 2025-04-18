@@ -5,6 +5,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors());
+//if the request comes to /api/v1 go to rootrouter
 app.use('/api/v1',rootRouter);
 app.use(express.json());
 
