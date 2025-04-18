@@ -1,7 +1,38 @@
 import React from 'react'
 import Button from '../components/Button';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const SignUp = () => {
+
+    const [username, setUsername] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    const handleSignUpButton = () => {
+        const res = axios.post({
+            url: "http://localhost:5000/api/v1/auth/signup",
+            body: {
+                username,
+                firstName,
+                lastName,
+                password
+            },
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        console.log(res);
+        if (res.status === 200) {
+            navigate("/dashboard");
+        } else {
+            alert("SignUp Failed");
+        }
+    }
+
     return (
         <div className='h-screen text-center flex flex-col items-center justify-center '>
             <h1 className='text-4xl font-bold mb-4' >SignUp</h1>
@@ -15,26 +46,33 @@ const SignUp = () => {
                             className="w-full p-2 border border-gray-300 rounded-md text-md mb-4"
                             type="text"
                             placeholder="John"
+                            onChange={(e) => setFirstName(e.target.value)}
                         />
                         <h3 className="font-bold text-md mb-1 text-left">Last Name</h3>
                         <input
                             className="w-full p-2 border border-gray-300 rounded-md text-md  mb-4"
                             type="text"
                             placeholder="Doe"
+                            onChange={(e) => setLastName(e.target.value)}
+
                         />
                         <h3 className="font-bold text-md mb-1 text-left">Email</h3>
                         <input
                             className="w-full p-2 border border-gray-300 rounded-md text-md mb-4"
                             type="text"
                             placeholder="johndoe@example.com"
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <h3 className="font-bold text-md mb-1 text-left">Password</h3>
                         <input
                             className="w-full p-2 border border-gray-300 rounded-md text-md mb-4"
                             type="text"
                             placeholder=""
+                            onChange={(e) => setPassword(e.target.value)}
                         />
-                        <Button text={"SignUp"} className={"w-full"} />
+                        <div onClick={() => { handleSignUpButton }}>
+                            <Button text={"SignUp"} className={"w-full"} />
+                        </div>
 
                         <p className="text-sm font-semibold text-gray-800 mt-4">
                             Already have an account? <a href="/signin" className="text-gray-900 underline font-semibold hover:text-blue-700">Sign In</a>
