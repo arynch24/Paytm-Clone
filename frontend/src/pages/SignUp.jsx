@@ -3,9 +3,9 @@ import Button from '../components/Button';
 
 const SignUp = () => {
     return (
-        <div className='h-screen text-center flex flex-col items-center justify-center'>
-            <h1 className='text-4xl font-bold'>SignUp</h1>
-            <p>Enter your information to create an account</p>
+        <div className='h-screen text-center flex flex-col items-center justify-center '>
+            <h1 className='text-4xl font-bold mb-4' >SignUp</h1>
+            <p className='mb-4 text-md'>Enter your information to create an account</p>
 
             <div className="w-full max-w-sm border rounded-md p-4">
                 <div className="flex justify-center items-center">
