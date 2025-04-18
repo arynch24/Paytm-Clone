@@ -3,18 +3,21 @@ import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn'
 import Dashboard from './pages/Dashboard'
 import SendMoney from './pages/SendMoney'
+import { RecoilRoot } from 'recoil'
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={"/signup"} element={<SignUp />}></Route>
-        <Route path={"/signin"} element={<SignIn />}></Route>
-        <Route path={"/dashboard"} element={<Dashboard />}></Route>
-        <Route path={"/send"} element={<SendMoney />}></Route>
-      </Routes>
-    </BrowserRouter>
-    
+    <RecoilRoot>
+      <BrowserRouter>
+        <Routes>
+          <Route path={"/signup"} element={<SignUp />}></Route>
+          <Route path={"/signin"} element={<SignIn />}></Route>
+          <Route path={"/dashboard"} element={<Dashboard />}></Route>
+          <Route path={"/send"} element={<SendMoney />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </RecoilRoot>
+
   )
 }
 

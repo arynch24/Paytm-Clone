@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 const Users = () => {
     const [users, setUsers] = useState([]);
+    const [filter,setFilter] = useState("");
     useEffect(() => {
 
         const fetchUsers = async () => {
-
             try {
-                const response = await axios.get('http://localhost:3000/api/v1/user/bulk',);
+                const response = await axios.get(`http://localhost:3000/api/v1/user/bulk?filter=${filter}`,);
                 console.log(`Users: ${response.data}`);
                 setUsers(response.data.users);
             }
@@ -19,16 +19,27 @@ const Users = () => {
             }
         };
 
-        fetchUsers();
+        // Using debounce to limit the number of API calls
+        const debounce = setTimeout(() => {
+            fetchUsers();
+        }
+        , 500);
+        return () => {
+            clearTimeout(debounce);
+        }
+
+        //fetchUsers();
     }
-        , []);
+        , [filter]);
 
     const navigate = useNavigate();
 
     return (
         <div className='m-8'>
             <h3 className='text-xl font-bold'>Users</h3>
-            <input type="text" className=' w-full mb-4 border-2 border-gray-300 rounded-md p-2 mt-4' placeholder='Search users...' />
+            <input type="text" className=' w-full mb-4 border-2 border-gray-300 rounded-md p-2 mt-4' placeholder='Search users...' value={filter} onChange={(e)=>{
+                setFilter(e.target.value);
+            }}/>
             <div className='flex flex-col'>
                 {users.map((user) => (
                     <div key={user._id} className='flex justify-between items-center border-b-1 border-gray-300 p-2'>
@@ -39,7 +50,8 @@ const Users = () => {
                         <div className='flex gap-4'>
                             <button className='bg-black hover:bg-zinc-900 text-white font-bold py-2 px-4 rounded' onClick={
                                 () => {
-                                    navigate('/send');
+                                    //navigate can be used to send data to the next page in the url
+                                    navigate("/send?id=" + user._id + "&name=" + user.firstName);
                                 }
                             }>Send Money</button>
                         </div>
