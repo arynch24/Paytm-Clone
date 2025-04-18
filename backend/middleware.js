@@ -2,9 +2,13 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('./config');
 
 const authMiddleware = (req, res, next) => {
-    const string = req.headers.authorization;
-    const words = string.split(" ");
-    const token = words[1];
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ message: "Authorization token missing or invalid" });
+    }
+
+    const token = authHeader.split(" ")[1];
 
     //returns a payload
     const decoded = jwt.verify(token, JWT_SECRET);
