@@ -17,7 +17,7 @@ const SignIn = () => {
         }
 
         try {
-            const res = await axios.post("http://localhost:3000/api/v1/user/signin", {
+            const res = await axios.post("https://paytm-clone-qbs7.onrender.com/api/v1/user/signin", {
                 username,
                 password
             }, {
