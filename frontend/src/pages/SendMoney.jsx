@@ -31,6 +31,7 @@ const SendMoney = () => {
             if (res.status === 200) {
                 alert("Transfer Successful");
             }
+            setAmount(0);
         } catch (err) {
             console.error(err);
             alert("Transfer Failed");
