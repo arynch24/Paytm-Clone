@@ -4,13 +4,14 @@ const { Accounts } = require('../db');
 const { default: mongoose } = require('mongoose');
 const router = express.Router();
 
+router.use(express.json());
 
 router.get('/balance', authMiddleware, async (req, res) => {
     const userAccount = await Accounts.findOne({
         userId: req.userId
     })
 
-    res.statq(200).json({
+    res.status(200).json({
         balance: userAccount.balance
     })
 })
@@ -22,7 +23,7 @@ router.get('/balance', authMiddleware, async (req, res) => {
 
 //session also prevents from happening another transaction from the same user if any transaction is ongoing
 router.post('/transfer', authMiddleware, async (req, res) => {
-    //for that we will use session provided by  mongoose
+    //for that we will use balancesession provided by  mongoose
 
     const session = await mongoose.startSession();
 
