@@ -53,8 +53,6 @@ router.post('/signup', async (req, res) => {
     })
 })
 
-
-
 const signInBody = zod.object({
     username: zod.string(),
     password: zod.string()
