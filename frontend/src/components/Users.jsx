@@ -10,7 +10,7 @@ const Users = () => {
 
         const fetchUsers = async () => {
             try {
-                const response = await axios.get(`https://paytm-clone-qbs7.onrender.com/user/bulk?filter=${filter}`,);
+                const response = await axios.get(`https://paytm-clone-qbs7.onrender.com/api/v1/user/bulk?filter=${filter}`,);
                 console.log(`Users: ${response.data}`);
                 setUsers(response.data.users);
             }
