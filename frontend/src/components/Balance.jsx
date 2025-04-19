@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Balance = () => {
-    const [balance, setBalance] = useState(null);
+    const [balance, setBalance] = useState(0.00);
     useEffect(() => {
         const fetchBalance = async () => {
             try {
