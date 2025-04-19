@@ -29,7 +29,7 @@ const Balance = () => {
     }, []);
     return (
         <div className='px-8 mt-4 text-sm font-bold'>
-            Your Balance: Rs{balance}
+            Your Balance: ₹{balance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </div>
     )
 }

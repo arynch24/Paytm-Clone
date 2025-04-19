@@ -35,7 +35,7 @@ const SignIn = () => {
             }
         } catch (err) {
             console.error(err);
-            alert("SignIn Failed");
+            alert(res.json().message);
         }
     };
 
