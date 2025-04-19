@@ -7,6 +7,7 @@ const { JWT_SECRET } = require('../config');
 const { authMiddleware } = require('../middleware');
 
 router.use(express.json());
+router.use(cors());
 
 const userSchema = zod.object({
     username: zod.string(),
