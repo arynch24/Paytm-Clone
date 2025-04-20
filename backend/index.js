@@ -4,7 +4,11 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://paytm-paymentsssss.vercel.app',
+    credentials: true, 
+  }));
+
 //if the request comes to /api/v1 go to rootrouter
 app.use('/api/v1',rootRouter);
 app.use(express.json());
